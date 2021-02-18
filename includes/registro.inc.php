@@ -25,7 +25,7 @@ if(isset($_POST["submit"])){
         exit();
     }
 
-    crearUsuario($conn, $nombre, $email, $pwd);
+    crearUsuario($conn, $nombre, $email, $pwd, $habilidad);
 
 
 }
