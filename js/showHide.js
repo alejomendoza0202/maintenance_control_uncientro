@@ -5,7 +5,7 @@ function show_hide(){
         return a=0;
     }
     else{
-        document.getElementById("container_drop").style.display="flex";
+        document.getElementById("container_drop").style.display="grid";
         return a=1;
     }
 }

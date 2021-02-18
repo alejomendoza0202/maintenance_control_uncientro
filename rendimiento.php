@@ -42,22 +42,19 @@
                 <p class="mantenimientos__titulos">Mantenimientos realizados</p>
                 <p class="mantenimientos__titulos">Retrasos en mantenimientos</p>
                 <p class="mantenimientos__titulos">Horas de trabajo</p>
-                <button class="mantenimientos__fecha" onclick="show_hide()"><p class="mantenimientos__p">Mendoza Lopez Fredy Alejandro</p></button>
+                <button class="mantenimientos__fecha btn_drop" onclick="show_hide()"><p class="mantenimientos__p">Mendoza Lopez Fredy Alejandro</p></button>
                 <p class="mantenimientos__p">15</p>
                 <p class="mantenimientos__p">1</p>
                 <p class="mantenimientos__p">160 </p>
                 <div class="container__drop" id="container_drop">
-                   <p class="mantenimientos__p">Mendoza Lopez Fredy Alejandro</p>
-                    <p class="mantenimientos__p">15</p>
-                    <p class="mantenimientos__p">1</p>
-                    <p class="mantenimientos__p">160 </p>
-                    <p class="mantenimientos__p mantenimientos__fecha">Mendoza Lopez Fredy Alejandro</p>
-                    <p class="mantenimientos__p">15</p>
-                    <p class="mantenimientos__p">1</p>
-                    <p class="mantenimientos__p">160 </p>
+                   <p class="mantenimientos__p">Fecha</p>
+                    <p class="mantenimientos__p">Nombre</p>
+                    <p class="mantenimientos__p">Retraso</p>
+                    <p class="mantenimientos__p">A </p>
                 </div>
-                <script src='js/showHide.js'></script>
+                
             </div>
+            <script src='js/showHide.js'></script>
         </div>
     </div>
 </body>

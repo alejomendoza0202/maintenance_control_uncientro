@@ -191,5 +191,13 @@ body {
 .container__drop{
     grid-column: 1/6;
     display: none;
+    grid-template-columns:  repeat(4,1fr);
+}
 
+.btn_drop{
+    border: none;
+}
+
+.btn_drop:hover{
+    cursor: pointer;
 }
