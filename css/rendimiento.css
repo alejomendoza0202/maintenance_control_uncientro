@@ -188,6 +188,8 @@ body {
     grid-column: 1/5;
 }
 
-.drop_name{
-    grid-column: 1/2;
+.container__drop{
+    grid-column: 1/6;
+    display: none;
+
 }

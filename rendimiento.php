@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/rendimiento.css">
     <link rel="stylesheet" href="css/navbar.css">
 </head>
 <body>
@@ -42,10 +42,21 @@
                 <p class="mantenimientos__titulos">Mantenimientos realizados</p>
                 <p class="mantenimientos__titulos">Retrasos en mantenimientos</p>
                 <p class="mantenimientos__titulos">Horas de trabajo</p>
-                <p class="mantenimientos__p mantenimientos__fecha">Mendoza Lopez Fredy Alejandro</p>
+                <button class="mantenimientos__fecha" onclick="show_hide()"><p class="mantenimientos__p">Mendoza Lopez Fredy Alejandro</p></button>
                 <p class="mantenimientos__p">15</p>
                 <p class="mantenimientos__p">1</p>
                 <p class="mantenimientos__p">160 </p>
+                <div class="container__drop" id="container_drop">
+                   <p class="mantenimientos__p">Mendoza Lopez Fredy Alejandro</p>
+                    <p class="mantenimientos__p">15</p>
+                    <p class="mantenimientos__p">1</p>
+                    <p class="mantenimientos__p">160 </p>
+                    <p class="mantenimientos__p mantenimientos__fecha">Mendoza Lopez Fredy Alejandro</p>
+                    <p class="mantenimientos__p">15</p>
+                    <p class="mantenimientos__p">1</p>
+                    <p class="mantenimientos__p">160 </p>
+                </div>
+                <script src='js/showHide.js'></script>
             </div>
         </div>
     </div>
