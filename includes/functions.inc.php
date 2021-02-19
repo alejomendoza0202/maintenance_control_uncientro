@@ -48,7 +48,9 @@ function emailExists($conn, $email) {
     mysqli_stmt_close($stmt);
 }
 
-function crearUsuario($conn, $nombre, $email, $pwd) {
+// Crear usuario
+
+function crearUsuario($conn, $nombre, $email, $pwd, $habilidad) {
     $sql = "INSERT INTO TECNICOS (nombreTecnico, correoTecnico, pwdTecnico) VALUES (?,?,?) ;"; 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -59,10 +61,26 @@ function crearUsuario($conn, $nombre, $email, $pwd) {
     mysqli_stmt_bind_param($stmt,"sss",$nombre, $email, $hashedPwd);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+    registroHabilidad($conn, $email, $habilidad);
+}
+
+function registroHabilidad($conn, $email, $habilidad){
+    $consulta = "SELECT IDTecnico FROM TECNICOS WHERE correoTecnico='".$email."'";
+    $result=mysqli_query($conn, $consulta);
+    $explorar = mysqli_fetch_array($result);
+    $IDTecnico = $explorar["IDTecnico"];
+    $sql = "INSERT INTO TECNICOS_HABILIDAD (IDTecnico, IDHabilidad) VALUES (?,?);"; 
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../registro?=error.php");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"ii",$IDTecnico, $habilidad);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
     header("location: ../index.php");
     exit();
 }
-
 
 // Funciones para validar datos del Login
 

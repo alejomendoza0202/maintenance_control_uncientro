@@ -22,11 +22,11 @@
                         <input name="nombre" type="text" class="container__input">
                     </div>
                     <div class="periodo-activo">
-                        <p class="container-mant__p">Periodo de mantenimiento (días) </p>
+                        <p class="container-mant__p">Período de mantenimiento (días) </p>
                         <input name="periodo" type="number" class="container__input">
                     </div>
                     <div class="descripcion-activo">
-                        <p class="container-desc__p">Descripcion </p>
+                        <p class="container-desc__p">Descripción </p>
                         <input name="descripcion" type="text" class="container__input container__descripcion">
                     </div>
                     <div class="container-habilidades">
