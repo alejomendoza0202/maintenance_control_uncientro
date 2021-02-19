@@ -38,7 +38,6 @@
                     include_once("includes/rendimiento.inc.php");
                 ?>
             </div>
-            <script src='js/showHide.js'></script>
         </div>
     </div>
 </body>

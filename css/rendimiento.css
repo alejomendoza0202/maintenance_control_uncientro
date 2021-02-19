@@ -172,6 +172,7 @@ body {
 
 .mantenimientos__fecha {
     grid-column: 1/2;
+    height: auto;
 }
 
 .mantenimientos__p {
@@ -184,20 +185,30 @@ body {
     border: 1px solid #000;
 }
 
-.container__mant-realizado{
-    grid-column: 1/5;
-}
-
 .container__drop{
+    width: 100%;
     grid-column: 1/6;
     display: none;
     grid-template-columns:  repeat(4,1fr);
 }
 
 .btn_drop{
-    border: none;
+    border: 1px solid #000;
+    height: auto;
 }
 
 .btn_drop:hover{
     cursor: pointer;
+}
+
+.rendimiento__titulos {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    height: 30px;
+    background-color: #5F4073;
+    margin: 0;
+    font-weight: 800;
 }
