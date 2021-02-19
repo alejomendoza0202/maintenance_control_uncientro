@@ -44,16 +44,20 @@
                     <a href = "#" class="filtros__boton">Filtrar</a>
                 </div>
             </div>
-            <div class="mantenimientos">
-            <h2 class="mantenimientos__h2">Estos son los activos que necesitan mantenimiento</h2>
-            <p class="mantenimientos__titulos">Fecha límite</p>
-            <p class="mantenimientos__titulos">Prioridad</p>
-            <p class="mantenimientos__titulos">Activo</p>
-            <p class="mantenimientos__titulos">Descripción</p>
-                <?php
+            <?php
+                if($_SESSION["permisos"]==0){
+                    echo('<div class="mantenimientos">
+                    <h2 class="mantenimientos__h2">Estos son los activos que necesitan mantenimiento</h2>
+                    <p class="mantenimientos__titulos">Fecha límite</p>
+                    <p class="mantenimientos__titulos">Prioridad</p>
+                    <p class="mantenimientos__titulos">Activo</p>
+                    <p class="mantenimientos__titulos">Descripción</p>');
                     include_once("includes/home.inc.php");
-                ?>
-            </div>
+                    echo('</div>');
+                }
+            ?>
+            
+            
         </div>
     </div>
 </body>

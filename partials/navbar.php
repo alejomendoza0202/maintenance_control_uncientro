@@ -7,7 +7,7 @@
             <div class="container__user-functions">
             <a href='index.php' class='navbar__a'><img class='navbar__img' src='img/unicentro_logo.png' alt=''></a>
             <?php
-                if(isset($_SESSION["correo"])){
+                if(isset($_SESSION["correo"]) && $_SESSION["permisos"]==1){
                     echo "<a href = 'agregar_activo.php' class='navbar__boton'>Añadir activo</a>";
                 }
             ?>

@@ -114,6 +114,7 @@ function loginUser($conn, $email, $pwd){
         $_SESSION["userID"] = $email["IDTecnico"];
         $_SESSION["correo"] = $email["correoTecnico"];
         $_SESSION["nombre"] = $email["nombreTecnico"];
+        $_SESSION["permisos"]=$email["permisos"];
         $nombreCompleto = explode(" ", $_SESSION["nombre"]);
         $_SESSION["primerNombre"] = $nombreCompleto[0];
         header("location: ../home.php");
