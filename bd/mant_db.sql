@@ -103,7 +103,7 @@ CREATE TABLE `tecnicos` (
   `nombreTecnico` varchar(50) NOT NULL,
   `correoTecnico` varchar(100) NOT NULL,
   `pwdTecnico` varchar(250) NOT NULL,
-  `permisos` bit(1) DEFAULT NOT NULL
+  `permisos` bit(1) NOT NULL
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -111,13 +111,13 @@ CREATE TABLE `tecnicos` (
 -- Volcado de datos para la tabla `tecnicos`
 --
 
-INSERT INTO `tecnicos` (`IDTecnico`, `nombreTecnico`, `correoTecnico`, `pwdTecnico`,b`1`) VALUES
-(1, 'Fredy Alejandro Mendoza Lopez', 'ifredomendoza@gmail.com', '$2y$10$vaK/RBaI7u/VHQn30.ox..2R5B0T1jjbzr5PDFoC2//JrLBXMCgCG',b`0`),
-(2, 'Javier Eduardo Rodriguez', 'javiereduardo2742@gmail.com', '$2y$10$Pjtow/ifnKYRhhBHLOd8TOeIcry3NQCHcBGIxB7KFf/Dyr6fjWPSO',b`0`),
-(3, 'Andres Mendoza', 'andres@gmail.com', '$2y$10$p7BJdhgT7jIcBLBuAlJkkeW6egJp2nDC17O6isBCIxHRJo.JEIKjS',b`0`),
-(4, 'Orlando Moncada', 'orlando@gmail.com', '$2y$10$TF5v.4QAOYW8dRuWq4qaqu5jA1gmDzbEkkVcftdHKJ0Zsl.nwh70u',b`0`),
-(5, 'David Norato', 'david@gmail.com', '$2y$10$4e71cbgtlbuf2UzeUvbCb.bjBAYlr.lKUwZfmGueKyRcs.P70OJae',b`0`),
-(6, 'Fredy Alejandro Mendoza Lopez', 'ifredomendoz22a@gmail.com', '$2y$10$PYLgsvYDuyGVwJbalEUt2ed2ppAFKKTAVcWuos3GhxZN4V5xfpT0K',b`0`);
+INSERT INTO `tecnicos` (`IDTecnico`, `nombreTecnico`, `correoTecnico`, `pwdTecnico`,`permisos`) VALUES
+(1, 'Fredy Alejandro Mendoza Lopez', 'ifredomendoza@gmail.com', '$2y$10$vaK/RBaI7u/VHQn30.ox..2R5B0T1jjbzr5PDFoC2//JrLBXMCgCG',b'1'),
+(2, 'Javier Eduardo Rodriguez', 'javiereduardo2742@gmail.com', '$2y$10$Pjtow/ifnKYRhhBHLOd8TOeIcry3NQCHcBGIxB7KFf/Dyr6fjWPSO',b'0'),
+(3, 'Andres Mendoza', 'andres@gmail.com', '$2y$10$p7BJdhgT7jIcBLBuAlJkkeW6egJp2nDC17O6isBCIxHRJo.JEIKjS',b'0'),
+(4, 'Orlando Moncada', 'orlando@gmail.com', '$2y$10$TF5v.4QAOYW8dRuWq4qaqu5jA1gmDzbEkkVcftdHKJ0Zsl.nwh70u',b'0'),
+(5, 'David Norato', 'david@gmail.com', '$2y$10$4e71cbgtlbuf2UzeUvbCb.bjBAYlr.lKUwZfmGueKyRcs.P70OJae',b'0'),
+(6, 'Fredy Alejandro Mendoza Lopez', 'ifredomendoz22a@gmail.com', '$2y$10$PYLgsvYDuyGVwJbalEUt2ed2ppAFKKTAVcWuos3GhxZN4V5xfpT0K',b'0');
 
 -- --------------------------------------------------------
 
