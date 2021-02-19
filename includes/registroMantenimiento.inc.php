@@ -18,5 +18,5 @@ if(isset($_POST["submit"])){
 
     mantenimientoHecho($conn,$info["IDActivo"]);
     actualizarTecAct($conn,$info);
-
+    
 }
