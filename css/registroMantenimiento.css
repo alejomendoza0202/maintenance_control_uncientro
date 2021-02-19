@@ -41,15 +41,18 @@ body {
 }
 
 .container-grid{
-    height: 38%;
+    height: 28%;
     width: 70%;
-    display: grid;
+    display: flex;
+    flex-direction: row;
+    padding-top: 6rem;;
+    justify-content: space-around; 
     
 }
 
 
 .agregar-activo__h2{
-    grid-column: 1/2;
+    
     font-size: 32px;
 }
 
@@ -61,18 +64,13 @@ body {
     padding: 0 5px;
 }
 
-.nombre-activo{
-    grid-column: 1/2;
-}
+
 
 .container__descripcion{
     width: 85%;
     height: 50%;
 }
 
-.periodo-activo{
-    grid-column: 2/2;
-}
 
 .habilidades{
     color: #000;
@@ -81,10 +79,10 @@ body {
 }
 
 .activos-botones{
-    grid-column: 2/3;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    width: 60%;
 }
 
 .añadir-boton{
@@ -99,7 +97,7 @@ body {
     border-radius: 4px;
     transition: all .2s;
     text-decoration: none;
-    margin-left: 4rem;
+    
 }
 
 .añadir-boton:hover{
@@ -129,6 +127,3 @@ body {
     margin-top:2rem;
 }
 
-.periodo-activo, .nombre-activo{
-    height: 60%;
-}

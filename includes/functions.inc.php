@@ -4,7 +4,7 @@
 //Funciones para validar datos del registro
 
 function emptyInputSignup($nombre, $email,$pwd){
-    $result;
+    $result=null;
     if(empty($nombre) || empty($email) || empty($pwd)){
         $result = true;
     }
@@ -15,7 +15,7 @@ function emptyInputSignup($nombre, $email,$pwd){
 }
 
 function invalidEmail($email) {
-    $result;
+    $result=null;
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
         $result = true;
     }
@@ -67,7 +67,7 @@ function crearUsuario($conn, $nombre, $email, $pwd) {
 // Funciones para validar datos del Login
 
 function emptyInputLogin($email,$pwd){
-    $result;
+    $result=null;
     if(empty($email) || empty($pwd)){
         $result = true;
     }
@@ -106,7 +106,7 @@ function loginUser($conn, $email, $pwd){
 // Funciones para agregar activo
 
 function emptyInputActivo($nombre,$periodo,$descripcion, $habilidad){
-    $result;
+    $result=null;
     if(empty($nombre) || empty($periodo) || empty($descripcion) || empty($habilidad)){
         $result = true;
     }
@@ -123,11 +123,40 @@ function addActivo($conn, $nombre, $periodo,$descripcion, $habilidad){
         exit();
     }
     $periodo = (int)$periodo;
-    $habilida = (int)$habilidad;
+    $habilidad = (int)$habilidad;
     $bit = 1;
     mysqli_stmt_bind_param($stmt,"ssiii",$nombre, $descripcion, $periodo, $habilidad, $bit);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     header("location: ../agregar_activo.php?error=none");
+    exit();
+}
+
+function mantenimientoHecho($conn,$id){
+    $sql = "UPDATE activos SET mantenimiento=0 WHERE IDActivo= ?;"; 
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../registroMantenimiento.php?error=stmtFailedman");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt,"i",$id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+}
+
+function actualizarTecAct($conn,$info){
+    $sql = "INSERT INTO activos_tecnicos (IDActivo, IDTecnico, FechaUltMantenimiento, retraso, Descripcion, Observaciones) VALUES (?,?,?,?,?,?) ;"; 
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../registroMantenimiento.php?error=stmtFailed");
+        exit();
+    }
+    
+    mysqli_stmt_bind_param($stmt,"iisiss",$info["IDActivo"],$info["IDTecnico"], $info["FechaUltMantenimiento"], $info["retraso"], $info["Descripcion"],$info["Observaciones"]);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: ../home.php?IDTec=".$info["IDTecnico"]."&Fec=".$info["FechaUltMantenimiento"]);
     exit();
 }
