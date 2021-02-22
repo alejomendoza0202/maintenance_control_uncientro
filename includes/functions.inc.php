@@ -151,6 +151,20 @@ function addActivo($conn, $nombre, $periodo,$descripcion, $habilidad){
     exit();
 }
 
+//Funciones añadir mantenimiento
+
+function setCero($conn, $id){
+    $sql = "UPDATE activos_tecnicos SET ultima=0 WHERE IDActivo= ? AND ultima=1;"; 
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../registroMantenimiento.php?error=stmtFailedman");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"i",$id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+}
+
 function mantenimientoHecho($conn,$id){
     $sql = "UPDATE activos SET mantenimiento=0 WHERE IDActivo= ?;"; 
     $stmt = mysqli_stmt_init($conn);
@@ -162,21 +176,27 @@ function mantenimientoHecho($conn,$id){
     mysqli_stmt_bind_param($stmt,"i",$id);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    exit();
 
 }
 
 function actualizarTecAct($conn,$info){
-    $sql = "INSERT INTO activos_tecnicos (IDActivo, IDTecnico, FechaUltMantenimiento, retraso, Descripcion, Observaciones) VALUES (?,?,?,?,?,?) ;"; 
+    $search = "SELECT frecMantActivo FROM ACTIVOS WHERE IDActivo =13";
+    $fechaActual = date('d-m-Y');
+    $result = mysqli_query($conn, $search);
+    $row = $result->fetch_array();
+    $periodoMant = $row['frecMantActivo'];
+    $maxMantenimiento = strtotime('+'.$periodoMant.' day', strtotime($fechaActual));
+    $maxMantenimiento = date('Y-m-d', $maxMantenimiento);
+    $sql = "INSERT INTO activos_tecnicos (IDActivo, IDTecnico, FechaUltMantenimiento, retraso, Descripcion, Observaciones, ultima, siguienteFecha) VALUES (?,?,?,?,?,?,?,?) ;"; 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("location: ../registroMantenimiento.php?error=stmtFailed");
         exit();
     }
     
-    mysqli_stmt_bind_param($stmt,"iisiss",$info["IDActivo"],$info["IDTecnico"], $info["FechaUltMantenimiento"], $info["retraso"], $info["Descripcion"],$info["Observaciones"]);
+    mysqli_stmt_bind_param($stmt,"iisissis",$info["IDActivo"],$info["IDTecnico"], $info["FechaUltMantenimiento"], $info["retraso"], $info["Descripcion"],$info["Observaciones"], $info["ultima"], $maxMantenimiento);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("location: ../home.php?IDTec=".$info["IDTecnico"]."&Fec=".$info["FechaUltMantenimiento"]);
+    header("location: ../home.php?IDTec=".$info["IDTecnico"]."&Fec=".$info["FechaUltMantenimiento"].$maxMantenimiento);
     exit();
 }

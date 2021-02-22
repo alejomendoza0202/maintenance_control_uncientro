@@ -7,14 +7,17 @@ if($inc){
     $result = mysqli_query($conn, $consulta);
     if($result){
         while($row = $result->fetch_array()){
-            $fechaActual = date('d-m-Y');
+            $search = "SELECT siguienteFecha FROM activos_tecnicos WHERE ultima=1 AND IDActivo=".$row["IDActivo"];
+            $resultado = mysqli_query($conn, $search);
+            $row2 = $resultado->fetch_array();
+            $maxMantenimiento = $row2["siguienteFecha"];
+            $maxMantenimiento = strtotime($maxMantenimiento);
+            $maxMantenimiento = date('d-m', $maxMantenimiento);
             $nombreActivo = $row['nombreActivo'];
             $descripcionActivo = $row['descripcionActivo'];
             $frecManActivo = $row['frecMantActivo'];
             $mantenimiento = $row['mantenimiento'];
-            $idActivo=$row['IDActivo'];
-            $maxMantenimiento = strtotime('+'.$frecManActivo.' day', strtotime($fechaActual));    
-            $maxMantenimiento = date('d-m-Y', $maxMantenimiento);
+            $idActivo=$row['IDActivo'];  
             if($mantenimiento==1){                        
             ?> 
                 <p class="mantenimientos__p mantenimientos__fecha"><?php echo $maxMantenimiento?></p>

@@ -33,7 +33,6 @@
                 <p class="mantenimientos__titulos">Nombre</p>
                 <p class="mantenimientos__titulos">Mantenimientos realizados</p>
                 <p class="mantenimientos__titulos">Retrasos en mantenimientos</p>
-                <p class="mantenimientos__titulos">Horas de trabajo</p>
                 <?php
                     include_once("includes/rendimiento.inc.php");
                 ?>
