@@ -10,6 +10,7 @@
 
 body {
     background-color: #F1F1F1;
+    overflow-x: hidden;
 }
 
 .container {
@@ -25,6 +26,9 @@ body {
     align-items: center;
 }
 
+
+/*VISTA USUARIO NORMAL*/
+
 .cuerpo {
     height: 92%;
     display: grid;
@@ -34,11 +38,12 @@ body {
 .filtros {
     margin: 15px 0;
     padding: 10px;
-    height: 90%;
+    height: 400px;
     display: flex;
     flex-direction: column;
     background-color: #81BF63;
     border-radius: 0 16px 16px 0;
+    justify-content: center;
 }
 
 .filtros__input {
@@ -57,18 +62,7 @@ body {
 
 .filtros__menu {
     color: #000;
-    height: 50vh;
-    padding: 20px;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-    gap: 30px;
-}
-
-.filtros__menu-rendimiento {
-    color: #000;
-    height: 33vh;
+    height: 230px;
     padding: 20px;
     background-color: #fff;
     display: flex;
@@ -141,15 +135,17 @@ body {
 }
 
 .rendimiento {
-    margin: 60px 30px;
+    margin: 30px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    height: 20%;
+    height: 50%;
+    width: 90%;
 }
 
 .rendimiento__h2 {
+    margin-top: 20px;
     font-size: 20px;
-    grid-column: 1/6;
+    grid-column: 1/4;
 }
 
 .mantenimientos__h2 {
@@ -165,7 +161,7 @@ body {
     border: none;
     height: 30px;
     background-color: #5F4073;
-    margin: 35px .5px 10px;
+    margin: 10px .5px 10px;
     font-weight: 800;
 }
 
@@ -186,9 +182,9 @@ body {
 
 .container__drop {
     width: 100%;
-    grid-column: 1/6;
+    grid-column: 1/4;
     display: none;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .btn_drop {
@@ -214,4 +210,67 @@ body {
 
 .graficos {
     grid-column: 1/4;
+    height: 40vh;
+}
+
+.filtros__menu-rendimiento {
+    color: #000;
+    height: 300px;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    gap: 30px;
+}
+
+.numero_mantenimientos {
+    height: 12vh;
+    width: 200px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.informes_numeros {
+    grid-column: 1/4;
+    display: flex;
+    width: 100%;
+    gap: 100px;
+    justify-content: center;
+}
+
+.dropMenu {
+    grid-column: 1/4;
+    display: none;
+    /*GRID*/
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.drop__titulos {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    height: 30px;
+    background-color: #5F4073;
+    margin: 0px .5px;
+    font-weight: 800;
+}
+
+.titulo__informe {
+    grid-column: 1/4;
+    margin-bottom: 20px;
+}
+
+.p__titulo__informe {
+    font-size: 30px;
+    font-weight: 900;
 }

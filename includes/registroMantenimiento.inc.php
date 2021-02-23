@@ -9,16 +9,12 @@ if(isset($_POST["submit"])){
     "IDTecnico"=>$_SESSION["userID"],
     "FechaUltMantenimiento"=>date('Y-m-d h:i:s', time()),
     "retraso"=>0,
-    "Descripcion"=>$_POST["descripcion"],
     "Observaciones"=>$_POST["observaciones"],
-    "ultima" => 1
     ];
 
     require_once 'dbh.inc.php';
     require_once 'functions.inc.php';
 
-    setCero($conn, $info["IDActivo"]);
-    mantenimientoHecho($conn,$info["IDActivo"]);
     actualizarTecAct($conn,$info);
     
 }

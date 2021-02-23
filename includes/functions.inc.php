@@ -135,16 +135,20 @@ function emptyInputActivo($nombre,$periodo,$descripcion, $habilidad){
     return $result;
 }
 function addActivo($conn, $nombre, $periodo,$descripcion, $habilidad){
-    $sql = "INSERT INTO ACTIVOS (nombreActivo, descripcionActivo, frecMantActivo, IDHabilidad, mantenimiento) VALUES (?,?,?,?,?) ;"; 
+    date_default_timezone_set('America/Bogota'); 
+    $sql = "INSERT INTO ACTIVOS (nombreActivo, descripcionActivo, frecMantActivo, IDHabilidad, mantenimiento, fechaRegistro, sigMantenimiento) VALUES (?,?,?,?,?,?,?) ;"; 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("location: ../agregar_activo.php?error=stmtFailed");
         exit();
     }
+    $fechaRegistro = date('Y-m-d', time());
+    $sigMantenimiento = strtotime('+'.$periodo.' day', strtotime($fechaRegistro));
+    $sigMantenimiento = date('Y-m-d', $sigMantenimiento);
     $periodo = (int)$periodo;
     $habilidad = (int)$habilidad;
     $bit = 1;
-    mysqli_stmt_bind_param($stmt,"ssiii",$nombre, $descripcion, $periodo, $habilidad, $bit);
+    mysqli_stmt_bind_param($stmt,"ssiiiss",$nombre, $descripcion, $periodo, $habilidad, $bit, $fechaRegistro, $sigMantenimiento);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     header("location: ../agregar_activo.php?error=none");
@@ -153,50 +157,52 @@ function addActivo($conn, $nombre, $periodo,$descripcion, $habilidad){
 
 //Funciones añadir mantenimiento
 
-function setCero($conn, $id){
-    $sql = "UPDATE activos_tecnicos SET ultima=0 WHERE IDActivo= ? AND ultima=1;"; 
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../registroMantenimiento.php?error=stmtFailedman");
-        exit();
-    }
-    mysqli_stmt_bind_param($stmt,"i",$id);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
-}
-
-function mantenimientoHecho($conn,$id){
-    $sql = "UPDATE activos SET mantenimiento=0 WHERE IDActivo= ?;"; 
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../registroMantenimiento.php?error=stmtFailedman");
-        exit();
-    }
-
-    mysqli_stmt_bind_param($stmt,"i",$id);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
-
-}
-
-function actualizarTecAct($conn,$info){
-    $search = "SELECT frecMantActivo FROM ACTIVOS WHERE IDActivo =13";
+function setNextDate($conn, $id){
+    date_default_timezone_set('America/Bogota'); 
+    $search = "SELECT frecMantActivo FROM ACTIVOS WHERE IDActivo=".$id;
     $fechaActual = date('d-m-Y');
     $result = mysqli_query($conn, $search);
     $row = $result->fetch_array();
     $periodoMant = $row['frecMantActivo'];
     $maxMantenimiento = strtotime('+'.$periodoMant.' day', strtotime($fechaActual));
     $maxMantenimiento = date('Y-m-d', $maxMantenimiento);
-    $sql = "INSERT INTO activos_tecnicos (IDActivo, IDTecnico, FechaUltMantenimiento, retraso, Descripcion, Observaciones, ultima, siguienteFecha) VALUES (?,?,?,?,?,?,?,?) ;"; 
+    $sql = "UPDATE activos SET sigMantenimiento= ? WHERE IDActivo= ?;"; 
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../registroMantenimiento.php?error=stmtFailedman");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt,"si",$maxMantenimiento, $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: ../home.php");
+    exit();
+}
+
+
+function actualizarTecAct($conn,$info){
+    $search = "SELECT sigMantenimiento FROM ACTIVOS WHERE IDActivo=".$info["IDActivo"];
+    $result = mysqli_query($conn, $search);
+    $row = $result->fetch_array();
+    $fechaActual = date('Y-m-d');
+    $sigMantenimiento = $row['sigMantenimiento'];
+    $fechaActual = strtotime($fechaActual);
+    $fechaMaxima = strtotime($sigMantenimiento);
+    if($fechaActual>$fechaMaxima){
+        $retraso = 1;
+    }
+    else{
+        $retraso = 0;
+    }
+    $sql = "INSERT INTO activos_tecnicos (IDActivo, IDTecnico, FechaUltMantenimiento, retraso, Observaciones) VALUES (?,?,?,?,?) ;"; 
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("location: ../registroMantenimiento.php?error=stmtFailed");
         exit();
     }
     
-    mysqli_stmt_bind_param($stmt,"iisissis",$info["IDActivo"],$info["IDTecnico"], $info["FechaUltMantenimiento"], $info["retraso"], $info["Descripcion"],$info["Observaciones"], $info["ultima"], $maxMantenimiento);
+    mysqli_stmt_bind_param($stmt,"iisis",$info["IDActivo"],$info["IDTecnico"], $info["FechaUltMantenimiento"], $retraso,$info["Observaciones"]);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("location: ../home.php?IDTec=".$info["IDTecnico"]."&Fec=".$info["FechaUltMantenimiento"].$maxMantenimiento);
-    exit();
+    setNextDate($conn, $info["IDActivo"]);
 }

@@ -1,3 +1,10 @@
+<?php
+///////////////////////// VARIABLES DE CONSULTA ///////////////////////////////
+date_default_timezone_set('America/Bogota');
+$actualDate2 = date('Y-m-d', time());
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -12,7 +19,7 @@
     <!--<script src='libraries\jquery-3.5.1.min.js'></script>
     <script src='libraries\plotly-latest.min.js'></script>-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <link rel="stylesheet" href="css/home.css">
+
     <link rel="stylesheet" href="css/rendimiento.css">
     <link rel="stylesheet" href="css/navbar.css">
 </head>
@@ -25,35 +32,42 @@
         <?php
         if ($_SESSION["permisos"] == 0) {
         ?>
+            <?php
+            $prioridad = "ORDER BY activos.sigMantenimiento asc";
+            $date = "";
+            if (isset($_POST['buscar'])) {
+                $orden = $_POST['orden'];
+                if (empty($_POST['xparahoy'])) {
+                    $prioridad = "ORDER BY activos.sigMantenimiento " . $orden;
+                } else if (empty($_POST['orden'])) {
+                    $date = "AND activos.sigMantenimiento  = '" . $actualDate2 . "'";
+                }
+            }
+            ?>
             <div class="cuerpo">
                 <div class="filtros">
-                    <input type="text" name="" class="filtros__input" placeholder="Buscar">
-                    <div class="filtros__menu">
-                        <label for="" class="filtros__label-titulo"> Filtros </label>
-                        <div class="filtros__para-hoy">
-                            <label for="" class="filtros__label"> Para hoy</label>
-                            <input type="checkbox" name="" id="" class="filtros__checkbox">
+                    <form method="POST">
+                        <input type="text" name="xnombre" class="filtros__input" placeholder="Buscar">
+                        <div class="filtros__menu">
+                            <label for="" class="filtros__label-titulo"> Filtros </label>
+                            <div class="filtros__para-hoy">
+                                <label for="" class="filtros__label"> Para hoy</label>
+                                <input type="checkbox" value="<?php echo $actualDate2 ?>" name="xparahoy" id="" class="filtros__checkbox">
+                            </div>
+                            <div class="filtros__prioridad">
+                                <label for="" class="filtros__label"> Prioridad</label>
+                                <select name="orden" id="orden" class="filtros__select">
+                                    <option value="">Seleccione la prioridad</option>
+                                    <option value="asc">Con más prioridad</option>
+                                    <option value="desc">Con menos prioridad</option>
+                                </select>
+                            </div>
+                            <button name="buscar" type="submit" class="filtros__boton"> Filtrar</button>
                         </div>
-                        <div class="filtros__maquina">
-                            <label for="" class="filtros__label"> Máquina</label>
-                            <select name="" id="" class="filtros__select">
-                                <option value="">Ascensor</option>
-                                <option value="">Escaleras</option>
-                            </select>
-                        </div>
-                        <div class="filtros__prioridad">
-                            <label for="" class="filtros__label"> Prioridad</label>
-                            <select name="" id="" class="filtros__select">
-                                <option value="">Alta</option>
-                                <option value="">Media</option>
-                                <option value="">Baja</option>
-                            </select>
-                        </div>
-                        <a href="#" class="filtros__boton">Filtrar</a>
-                    </div>
+                    </form>
                 </div>
                 <div class="mantenimientos">
-                    <h2 class="mantenimientos__h2">Estos son los activos que necesitan mantenimiento</h2>
+                    <h2 class="mantenimientos__h2">Estos son los activos que necesitan mantenimiento dentro de los siguientes 7 días.</h2>
                     <p class="mantenimientos__titulos">Fecha límite</p>
                     <p class="mantenimientos__titulos">Prioridad</p>
                     <p class="mantenimientos__titulos">Activo</p>
@@ -113,23 +127,89 @@
                         break;
                 }
                 ?>
+                    <?php
+                    date_default_timezone_set('America/Bogota');
+                    $fechaFin = date("Y-m-d");
+                    $fechaInicio = date("Y-m-d", strtotime($fechaFin . "- 7 days"));
+                    $fechas = "WHERE FechaUltMantenimiento > '$fechaInicio'";
+                    $fechas2 = "AND activos_tecnicos.FechaUltMantenimiento > '$fechaInicio'";
+                    $fechas3 = "WHERE activos_tecnicos.FechaUltMantenimiento > '$fechaInicio'";
+                    $prioridad = "ORDER BY activos.sigMantenimiento asc";
+                    $date = "";
+                    if (isset($_POST['filtrarFecha'])) {
+                        $fechaInicio = $_POST['fechaInicio'];
+                        $fechaFin = $_POST['fechaFin'];
+                        $fechas = "WHERE FechaUltMantenimiento BETWEEN '$fechaInicio' AND '$fechaFin'";
+                        $fechas2 = "AND activos_tecnicos.FechaUltMantenimiento BETWEEN '$fechaInicio' AND '$fechaFin'";
+                        $fechas3 = "WHERE activos_tecnicos.FechaUltMantenimiento BETWEEN '$fechaInicio' AND '$fechaFin'";
+                    }
+                    ?>
                     <div class="cuerpo">
                         <div class="filtros">
-                            <input type="text" name="" class="filtros__input" placeholder="Buscar">
-                            <div class="filtros__menu-rendimiento">
-                                <label for="" class="filtros__label-titulo"> Filtros </label>
-                                <div class="filtros__maquina">
-                                    <label for="" class="filtros__label"> Ordenar por</label>
-                                    <select name="" id="" class="filtros__select">
-                                        <option value="">Mejor desempeño</option>
-                                        <option value="">Peor desempeño</option>
-                                        <option value="">Numero de mantenimientos</option>
-                                    </select>
+                            <form method="POST">
+                                <div class="filtros__menu-rendimiento">
+                                    <label for="" class="filtros__label-titulo"> Filtrar por fechas </label>
+                                    <div class="filtros__maquina">
+                                        <label for="" class="filtros__label"> Desde:</label>
+                                        <input type="date" id="fechaInicio" name="fechaInicio" max=<?php echo $actualDate2 ?> required>
+                                    </div>
+                                    <div class="filtros__maquina">
+                                        <label for="" class="filtros__label"> Hasta:</label>
+                                        <input type="date" id="fechaFin" name="fechaFin" max=<?php echo $actualDate2 ?> required>
+                                    </div>
+                                    <button name="filtrarFecha" type="submit" class="filtros__boton"> Filtrar</button>
                                 </div>
-                                <a href="#" class="filtros__boton">Filtrar</a>
-                            </div>
+                            </form>
                         </div>
                         <div class="rendimiento">
+                            <div class="titulo__informe">
+                                <p class="p__titulo__informe">Informe desde <?php echo $fechaInicio ?> hasta <?php echo $fechaFin?> </p>
+                            </div>
+                            <div class="informes_numeros">
+                                <div class="numero_mantenimientos">
+                                    <p>Número de mantenimientos</p><br>
+                                    <?php
+                                    $inc = include("includes/dbh.inc.php");
+                                    if ($inc) {
+                                        $consulta = "SELECT count(*) AS numMantenimientos FROM activos_tecnicos $fechas";
+                                        $result = mysqli_query($conn, $consulta);
+                                        $row = $result->fetch_array();
+                                    ?>
+                                        <p><?php echo $row['numMantenimientos'] ?></p>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
+
+                                <div class="numero_mantenimientos">
+                                    <p>Número de activos</p><br>
+                                    <?php
+                                    $inc = include("includes/dbh.inc.php");
+                                    if ($inc) {
+                                        $consulta = "SELECT count(*) AS numActivos FROM activos";
+                                        $result = mysqli_query($conn, $consulta);
+                                        $row = $result->fetch_array();
+                                    ?>
+                                        <p><?php echo $row['numActivos'] ?></p>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
+                                <div class="numero_mantenimientos">
+                                    <p>Número de técnicos</p><br>
+                                    <?php
+                                    $inc = include("includes/dbh.inc.php");
+                                    if ($inc) {
+                                        $consulta = "SELECT count(*) AS numTecnicos FROM tecnicos";
+                                        $result = mysqli_query($conn, $consulta);
+                                        $row = $result->fetch_array();
+                                    ?>
+                                        <p><?php echo $row['numTecnicos'] - 1 ?></p>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
+                            </div>
                             <script type="text/javascript">
                                 google.charts.load('current', {
                                     'packages': ['corechart']
@@ -162,7 +242,7 @@
                                 }
                             </script>
                             <div class="graficos" id="graficos"></div>
-                            <h2 class="rendimiento__h2">Estos son los empleados y su rendimiento en el mes de <?php echo $monthNameSpanish ?>.</h2>
+                            <h2 class="rendimiento__h2">Informe de empleados.</h2>
                             <p class="mantenimientos__titulos">Nombre</p>
                             <p class="mantenimientos__titulos">Mantenimientos realizados</p>
                             <p class="mantenimientos__titulos">Retrasos en mantenimientos</p>

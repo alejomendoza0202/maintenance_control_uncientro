@@ -12,12 +12,12 @@ body {
     background-color: #F1F1F1;
 }
 
-.container{
+.container {
     height: 100vh;
     width: 100vw;
 }
 
-.user-container{
+.user-container {
     width: 20%;
     display: flex;
     padding: 10px;
@@ -31,34 +31,34 @@ body {
     grid-template-columns: 20% 80%;
 }
 
-.filtros{
+.filtros {
     margin: 15px 0;
     padding: 10px;
-    height: 90%;
+    height: 50%;
     display: flex;
     flex-direction: column;
     background-color: #81BF63;
     border-radius: 0 16px 16px 0;
 }
 
-.filtros__input{
+.filtros__input {
     margin: 30px 0px;
     height: 30px;
     border-radius: 10px;
     border: 1px solid #707070;
-    padding:10px;
+    padding: 10px;
     transition: all .1s;
 }
 
-.filtros__input:focus{
+.filtros__input:focus {
     outline: none;
     box-shadow: 0 0 1pt 1pt #5F4073;
 }
 
 .filtros__menu {
     color: #000;
-    height: 50vh;
-    padding:20px;
+    height: 30vh;
+    padding: 20px;
     background-color: #fff;
     display: flex;
     flex-direction: column;
@@ -69,7 +69,7 @@ body {
 .filtros__menu-rendimiento {
     color: #000;
     height: 33vh;
-    padding:20px;
+    padding: 20px;
     background-color: #fff;
     display: flex;
     flex-direction: column;
@@ -92,7 +92,7 @@ body {
     margin-left: 20px;
 }
 
-.filtros__maquina{
+.filtros__maquina {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -114,7 +114,7 @@ body {
     flex-direction: column;
 }
 
-.filtros__boton{
+.filtros__boton {
     padding: 5px;
     text-align: center;
     height: 30px;
@@ -128,7 +128,7 @@ body {
     text-decoration: none;
 }
 
-.filtros__boton:hover{
+.filtros__boton:hover {
     background-color: #fff;
     color: #000;
 }
@@ -136,24 +136,23 @@ body {
 .mantenimientos {
     margin: 60px 30px;
     display: grid;
-    grid-template-columns:  repeat(5,1fr);
+    grid-template-columns: repeat(5, 1fr);
     height: 20%;
 }
 
 .rendimiento {
     margin: 60px 30px;
     display: grid;
-    grid-template-columns:  repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
     height: 20%;
 }
 
-.rendimiento__h2{
+.rendimiento__h2 {
     font-size: 20px;
     grid-column: 1/6;
 }
 
-
-.mantenimientos__h2{
+.mantenimientos__h2 {
     font-size: 20px;
     grid-column: 1/6;
 }
@@ -184,10 +183,10 @@ body {
     border: 1px solid #000;
 }
 
-.container__mant-realizado{
+.container__mant-realizado {
     grid-column: 1/5;
 }
 
-.drop_name{
+.drop_name {
     grid-column: 1/2;
 }

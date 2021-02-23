@@ -9,6 +9,7 @@
             <?php
                 if(isset($_SESSION["correo"]) && $_SESSION["permisos"]==1){
                     echo "<a href = 'agregar_activo.php' class='navbar__boton'>Añadir activo</a>";
+                    echo "<a href = 'registro.php' class='navbar__boton'>Registro</a>";
                 }
             ?>
             </div>
@@ -17,9 +18,6 @@
                 if(isset($_SESSION["correo"])){
                     echo "<li class='navbar__li'><a href='#' class='navbar__a'>Hola, ".$_SESSION["primerNombre"]."</a></li>";
                     echo "<a href = 'includes/logout.inc.php' class='navbar__boton'>Salir</a>";
-                }
-                else{
-                    echo "<a href = 'registro.php' class='navbar__boton'>Registro</a>";
                 }
             ?>
             </div>

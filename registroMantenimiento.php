@@ -35,14 +35,6 @@ if (isset($_GET["id"])) {
                 <form action="includes/registroMantenimiento.inc.php?id=<?php echo($id) ?>" method="post" class="agregar-activo__formulario">
                     <h2 class="agregar-activo__h2">Registrar mantenimiento de <?php echo $nombre ?></h2>
                     <div class="container-grid">
-
-                        <div class="nombre-activo">
-                            <p class="habilidades__p">Descripción</p>
-                            <select name="descripcion" class="container__input">
-                                <option class="habilidades" value="Finalizado">Finalizado</option>
-                            </select>
-                            <p class="add-image-text">Añadir imagen </p>
-                        </div>
                         <div class="periodo-activo">
                             <p class="container-mant__p">Observaciones (opcional) </p>
                             <input name="observaciones" type="text" class="container__input">
